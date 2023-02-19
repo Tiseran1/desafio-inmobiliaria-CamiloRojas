@@ -1,41 +1,41 @@
 const propiedadesJSON = [
     {
       nombre: "Casa de campo",
-      descripcion: "Un lugar ideal para descansar de la ciudad",
+      descripcion: "Una madriguera especial para descansar",
       src:
-        "https://www.construyehogar.com/wp-content/uploads/2020/02/Dise%C3%B1o-casa-en-ladera.jpg",
+        "https://p4.wallpaperbetter.com/wallpaper/335/429/69/nature-mountains-the-city-waterfall-the-lord-of-the-rings-hd-wallpaper-preview.jpg",
       cuartos: 2,
       metros: 170
     },
     {
       nombre: "Casa de playa",
-      descripcion: "Despierta tus días oyendo el oceano",
+      descripcion: "Contempla la inmencidad del oceano y sientete insignificante",
       src:
-        "https://media.chvnoticias.cl/2018/12/casas-en-la-playa-en-yucatan-2712.jpg",
+        "https://w0.peakpx.com/wallpaper/402/661/HD-wallpaper-houses-on-rocks-cliff-in-ocean-waves-background-nature.jpg",
       cuartos: 2,
       metros: 130
     },
     {
       nombre: "Casa en el centro",
-      descripcion: "Ten cerca de ti todo lo que necesitas",
+      descripcion: "Si no te importan los espiritus, esta es tu casa",
       src:
-        "https://fotos.perfil.com/2018/09/21/trim/950/534/nueva-york-09212018-366965.jpg",
+        "https://img.freepik.com/fotos-premium/casa-abandonada-ventanas-rotas-centro-pueblo_395451-430.jpg?w=1380",
       cuartos: 1,
       metros: 80
     },
     {
       nombre: "Casa rodante",
-      descripcion: "Conviertete en un nómada del mundo sin salir de tu casa",
+      descripcion: "Papeles atrasados pero funcionando",
       src:
-        "https://cdn.bioguia.com/embed/3d0fb0142790e6b90664042cbafcb1581427139/furgoneta.jpg",
+        "https://thumbs.dreamstime.com/z/rv-abandonado-65638737.jpg",
       cuartos: 1,
       metros: 6
     },
     {
       nombre: "Departamento",
-      descripcion: "Desde las alturas todo se ve mejor",
+      descripcion: "Una manito de gato y es perfecto",
       src:
-        "https://www.adondevivir.com/noticias/wp-content/uploads/2016/08/depto-1024x546.jpg",
+        "https://es.theepochtimes.com/assets/uploads/2019/07/china_apartment_shambles-700x420.jpg",
       cuartos: 3,
       metros: 200
     },
@@ -56,6 +56,7 @@ const propiedadesJSON = [
   let inputMetrosMaximos = document.querySelector("#metrosMax");
 
 
+
   botonBuscar.addEventListener("click", function(){
     let cantidadCuartos = inputCantidadCuartos.value;
     let metrosMinimos = inputMetrosMinimos.value;
@@ -68,55 +69,54 @@ const inputs = [cantidadCuartos, metrosMinimos, metrosMaximos];
       return false; 
     }
 
-    let propiedadesFiltradas = filtrarPropiedades(propiedadesJSON, inputs);
-
-    // let template = `
-    // <div class="propiedad">
-    //             <div class="img" style="background-image: url('${propiedadesJSON[0].src}')"></div>
-    //             <section>
-    //                 <h5>${propiedadesJSON[0].nombre}</h5>
-    //                 <div class="d-flex justify-content-between">
-    //                     <p>Cuartos${propiedadesJSON[0].cuartos}</p>
-    //                     <p>Metros${propiedadesJSON[0].metros}</p>
-    //                 </div>
-    //                 <p class="my-3">${propiedadesJSON[0].descripcion}</p>
-    //                 <button class="btn btn-info ">Ver más</button>
-    //             </section>
-    //         </div>
-    // `;
     
-  }); 
 
+    let propiedadesFiltradas = filtrarPropiedades(propiedadesJSON, inputs);
+    console.log(propiedadesFiltradas);
+    document.querySelectorAll('.propiedad').forEach(function(el) {
+      el.style.display = 'none';
+    });
+    for(let i = 0; i < propiedadesFiltradas.length; i++){
+      let divId = propiedadesFiltradas[i]["nombre"];
+      document.getElementById(divId).style.display = 'block';
+    }
+    document.getElementById("total").innerHTML = propiedadesFiltradas.length;
+  });
+  
   const validarInputs = inputs => {
-    for(let input of inputs){
+    for (let input of inputs){
       if(input == ""){
-
+        alert("faltan campos por rellenar");
         return false;
       }
     }
-
     return true;
-
+  
   };
-
+  
 
   const filtrarPropiedades = (propiedades, inputs) => {
-
+  
     let propiedadesFiltradas = [];
     let indexPropiedadFiltrada = 0;
-
-    for(let i = 0; i < propiedades.length; i++){
+    
+    for(var i = 0; i < propiedades.length; i++){
+    
       if(
-        propiedades[i].cuartos == inputs[0]&& 
-        propiedades[i].metros >= inputs [1]&&
-        propiedades[i].metros <= inputs[2]
-
+          propiedades[i].cuartos == inputs[0] && 
+          propiedades[i].metros >= inputs[1] &&
+          propiedades[i].metros <= inputs[2] 
       ){
-          propiedadesFiltradas[propiedadesFiltradas] = propiedades[i]
-          indexPropiedadFiltrada++;
+        propiedadesFiltradas[indexPropiedadFiltrada] = propiedades[i];
+        indexPropiedadFiltrada++;
+        console.log("entro")
+      } else {
+        console.log("no entro")
       }
+  
+      
     }
-
+      console.log(propiedadesFiltradas)
     return propiedadesFiltradas;
-
   }
+  
